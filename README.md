@@ -43,10 +43,21 @@ This report compares URLLC configuration parameters between **OpenAirInterface (
 
 ### Visual TDD Pattern
 
+
 ```
-Slot:    |   0   |   1   |   2   |   3   |
-         |  DL   |  DL   |DL/GP/UL|  UL   |
-Symbols: |0-13   |0-13   |DL|GP|UL|0-13   |
+2ms TDD Period (4 slots × 0.5ms each at 30kHz SCS)
+
+Slot 0          Slot 1          Slot 2 (Special)     Slot 3
+─────────       ─────────       ─────────────────    ─────────
+│▼▼▼▼▼▼▼│       │▼▼▼▼▼▼▼│       │▼▼▼▼│░░░░│         │▲▲▲▲▲▲▲│
+│  DL   │       │  DL   │       │ DL │ GP │         │  UL   │
+│14 sym │       │14 sym │       │8sym│6sym│         │14 sym │
+─────────       ─────────       ─────────────────    ─────────
+
+▼ = Downlink (gNB → UE)    ▲ = Uplink (UE → gNB)    ░ = Guard Period
+
+Config: nof_dl_slots=2, nof_dl_symbols=8, nof_ul_slots=1, nof_ul_symbols=0
+Total: 36 DL symbols + 6 GP symbols + 14 UL symbols = 56 symbols
 ```
 
 ---
